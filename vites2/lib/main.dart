@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:vites2/auth_gate.dart';
+import 'package:vites2/services/auth_service.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const Vites2App());
 }
 
@@ -15,7 +20,7 @@ class Vites2App extends StatelessWidget {
         brightness: Brightness.dark,
         primarySwatch: Colors.grey,
       ),
-      home: const HomePage(),
+      home: const AuthGate(),
     );
   }
 }
@@ -25,12 +30,21 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final AuthService _authService = AuthService();
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Vites2'),
+        title: const Text('Vites2 Ana Sayfa'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.logout),
+            onPressed: () async {
+              await _authService.signOut();
+            },
+          ),
+        ],
       ),
       body: const Center(
-        child: Text('Vites2 Ana Sayfa'),
+        child: Text('Giriş yapıldı!'),
       ),
     );
   }
