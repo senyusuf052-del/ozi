@@ -51,7 +51,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     _emailController.text,
                     _passwordController.text,
                   );
-                  // Giriş başarılı olursa, AuthGate zaten HomePage'e yönlendirecek.
                 } catch (e) {
                   _showErrorSnackBar('Giriş başarısız: ${e.toString()}');
                 }
